@@ -18,20 +18,16 @@ hexu	proc
 			mov ah, 2
 			mov si, 0
 	hexu_zero_skip:
+
+			mov dx, cx
+			mov cx, 4
+		hexu_get_quad1:
 			shl bx, 1
 			adc si, 0
 			shl si, 1
-
-			shl bx, 1
-			adc si, 0
-			shl si, 1
-
-			shl bx, 1
-			adc si, 0
-			shl si, 1
-
-			shl bx, 1
-			adc si, 0
+			loop hexu_get_quad1
+			mov cx, dx
+			shr si, 1
 
 			test si, si
 			jnz hexu_print
@@ -45,20 +41,15 @@ hexu	proc
 			mov si, 0
 			int 21h
 
+			mov dx, cx
+			mov cx, 4
+		hexu_get_quad2:
 			shl bx, 1
 			adc si, 0
 			shl si, 1
-
-			shl bx, 1
-			adc si, 0
-			shl si, 1
-
-			shl bx, 1
-			adc si, 0
-			shl si, 1
-
-			shl bx, 1
-			adc si, 0
+			loop hexu_get_quad2
+			mov cx, dx
+			shr si, 1
 
 			loop hexu_print
 
