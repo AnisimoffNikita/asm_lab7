@@ -15,41 +15,33 @@ hexu	proc
 
 			mov bx, [bp+4]
 			mov cx, 4
-			mov ah, 2
+			mov dx, 4
 			mov si, 0
 	hexu_zero_skip:
 
-			mov dx, cx
-			mov cx, 4
-		hexu_get_quad1:
-			shl bx, 1
-			adc si, 0
-			shl si, 1
-			loop hexu_get_quad1
-			mov cx, dx
-			shr si, 1
+			rol bx, 1   
+			rol bx, 1   
+			rol bx, 1   
+			rol bx, 1                                                                                                                                   
+			mov si, bx
+			and si, 1111b
 
 			test si, si
 			jnz hexu_print
-			mov si, 0
 			loop hexu_zero_skip
 
 			mov cx, 1
 			mov ah, 2
 	hexu_print:
 			mov dl, hex[si]
-			mov si, 0
 			int 21h
 
-			mov dx, cx
-			mov cx, 4
-		hexu_get_quad2:
-			shl bx, 1
-			adc si, 0
-			shl si, 1
-			loop hexu_get_quad2
-			mov cx, dx
-			shr si, 1
+			rol bx, 1   
+			rol bx, 1   
+			rol bx, 1   
+			rol bx, 1   
+			mov si, bx
+			and si, 1111b
 
 			loop hexu_print
 
